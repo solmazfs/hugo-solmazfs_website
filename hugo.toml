@@ -1,0 +1,8 @@
+baseURL = 'http://localhost:1313'
+languageCode = 'en'
+defaultContentLanguage = "en"
+title = 'author'
+pluralizelisttitles = false
+disableSitemap = true
+[taxonomies]
+

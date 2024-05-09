@@ -1,0 +1,21 @@
+Person:
+  name: author
+  image: 0
+  badge: 1
+  text: test
+Contact:
+  text: test
+  link_text: test
+  link: link
+Portfolio:
+  text: test
+  link_text: test
+  link: link
+Blog:
+  text: test
+  link: link
+Gallery:
+  - 1
+  - 2
+  - 3
+  - 4

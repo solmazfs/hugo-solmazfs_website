@@ -1,0 +1,59 @@
+<!doctype html>
+{{ $data := .Site.Data.data }}
+<html lang="{{ $.Site.LanguageCode | default "en" }}">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="description" content="Author: test">
+        <title>{{ $data.Person.name | upper }}</title>
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {{ $style := resources.Get "links/base.css" }}
+        <link rel="stylesheet" href="{{ $style.RelPermalink }}">
+    </head>
+    <body>
+        <main>
+            <div class="grid">
+                {{ range $data.Gallery }}
+                {{ with resources.GetMatch . }}
+                {{ with .Resize "400x webp q75 Lanczos" }}
+                <img loading="lazy" src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="">
+                {{ end }}
+                {{ end }}
+                {{ end }}
+            </div>
+            <div class="frame">
+                <div class="frame__title">
+                    <small>updated</small> {{ time.Now | time.Format "Jan 01, 2006" }}
+                </div>
+            </div>
+            <dl class="content">
+                <dt>
+                    <span class="person">{{ $data.Person.name | upper }}</span>
+                    {{ with resources.Get $data.Person.image }}
+                    {{ with .Resize "380x webp q75 Lanczos" }}
+                    <div class="img__wrap">
+                        <img loading="lazy" src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="">
+                    </div>
+                    {{ end }}
+                    {{ end }}
+                    <small>© -{{ time.Now | time.Format "2006" }}</small>
+                    {{ with resources.Get $data.Person.badge }}
+                    {{ with .Resize "380x webp q75 Lanczos" }}
+                    <div class="img__wrap">
+                        <img loading="lazy" src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="">
+                    </div>
+                    {{ end }}
+                    {{ end }}
+                </dt>
+                <dd>
+                    <span>{{ $data.Person.text }}</span><br><br>
+                    {{ $c_link := $data.Contact.link }}
+                    {{ $pf_link := $data.Portfolio.link }}
+                    <span>{{ $data.Contact.text }} <a href="{{ $c_link }}" target="_blank">{{ $data.Contact.link_text }}</a></span><br><br>
+                    <span>{{ $data.Portfolio.text }}<a target="_blank" class="iridescent__bt" href="{{ $pf_link }}">{{ $data.Portfolio.link_text }}</a>.</span>
+                </dd>
+                <dt><small>?</small><a href="{{ $data.Blog.link }}" target="_blank">{{ $data.Blog.text }}</a></dt>
+            </dl>
+        </main>
+    </body>
+</html>
